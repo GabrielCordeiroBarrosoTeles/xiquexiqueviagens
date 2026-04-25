@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# XiqueXique Viagens
 
-## Getting Started
+Site institucional da XiqueXique Viagens — agência de turismo socioambiental que comercializa viagens parceladas no carnê.
 
-First, run the development server:
+Stack: Next.js 16 (App Router), React 19, Tailwind CSS 4, shadcn/base-ui.
+
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuração
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Número de WhatsApp
 
-## Learn More
+O número hoje é um **placeholder** (`5500000000000`). Pra trocar pelo real, editar uma constante única em [`src/lib/utils.ts`](src/lib/utils.ts) (`WHATSAPP_NUMERO`). Todos os links e CTAs passam a apontar pra lá automaticamente.
 
-To learn more about Next.js, take a look at the following resources:
+### Feed do Instagram
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Dois modos, do mais automático pro mais manual:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Modo automático (recomendado) — LightWidget**
 
-## Deploy on Vercel
+Puxa os posts do perfil sozinho, sempre atualizado. Gratuito.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Criar conta em <https://lightwidget.com>.
+2. Criar um widget apontando pra `@xiquexiqueviagens`.
+3. Copiar o ID do widget (trecho da URL do embed, tipo `abcd1234ef`).
+4. Setar `NEXT_PUBLIC_LIGHTWIDGET_ID` (local em `.env.local` ou na Vercel em Settings → Environment Variables).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Modo manual — embeds nativos**
+
+Sem configuração: a seção renderiza uma grade de iframes via `instagram.com/p/{shortcode}/embed/`. Pra trocar os posts, edita o array **`instagramShortcodes`** em [`src/lib/mock-data.ts`](src/lib/mock-data.ts) — cada item com `shortcode` e `tipo` (`"p"` ou `"reel"`).
+
+Se os dois estiverem vazios, aparece um fallback com link pro perfil.
+
+### PWA (instalável como app)
+
+O site funciona como Progressive Web App: o usuário pode "Adicionar à tela inicial" no celular e abrir como se fosse um app nativo (tela cheia, ícone próprio).
+
+- No Android/Chrome: menu ⋮ → **Instalar app** / **Adicionar à tela inicial**.
+- No iOS/Safari: botão compartilhar → **Adicionar à Tela de Início**.
+
+Os ícones do PWA são gerados a partir de `public/logo.png` (150x150, upscale pra 192/512). Pra qualidade melhor, substitua `public/icon-192.png` e `public/icon-512.png` por versões em alta resolução (PNG quadrado, fundo transparente ou sólido).
+
+> Obs.: não tem service worker ainda, então o app não funciona offline. Pra adicionar isso, integrar [@serwist/next](https://serwist.pages.dev/) — fora do escopo atual.
+
+## Deploy na Vercel
+
+Zero configuração necessária. Não há env vars obrigatórias.
+
+1. Criar repositório no GitHub e dar push:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial site"
+   git branch -M main
+   git remote add origin https://github.com/<seu-usuario>/<repo>.git
+   git push -u origin main
+   ```
+2. Acessar <https://vercel.com/new> e importar o repositório.
+3. Framework detectado automaticamente como Next.js. Clicar em **Deploy**.
+4. (Opcional) Ajustar shortcodes do Instagram em `mock-data.ts` quando publicar posts novos.
+
+## Estrutura
+
+```
+src/
+├── app/           # App Router (layout, page, globals.css)
+├── components/    # Componentes de página e UI (shadcn/base-ui em ui/)
+├── hooks/         # React hooks (useScrolled)
+├── lib/           # utils (cn, formatCurrency, whatsappUrl), mock-data
+└── types/         # tipos compartilhados
+```
+
+Dados (destinos, depoimentos, passos, FAQ) estão em [`src/lib/mock-data.ts`](src/lib/mock-data.ts) — editar por aí.
+
+## Scripts
+
+- `npm run dev` — servidor de desenvolvimento
+- `npm run build` — build de produção
+- `npm start` — servir build
+- `npm run lint` — ESLint
+# xiquexiqueviagens
