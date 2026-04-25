@@ -2,11 +2,11 @@ import Image from "next/image";
 import { MessageCircle, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { LinkButton } from "@/components/ui/link-button";
+import { whatsappUrl } from "@/lib/utils";
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
@@ -14,82 +14,77 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-const destinos = ["Chapada Diamantina", "Lençóis Maranhenses", "Fernando de Noronha", "Bonito", "Pantanal", "Jericoacoara"];
-
 export default function Footer() {
   return (
-    <footer id="contato" className="bg-gray-900 text-gray-400 pt-14 pb-8">
+    <footer id="contato" className="bg-foreground/95 text-background/80 pt-14 pb-8">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Image src="/logo.png" alt="XiqueXique Viagens" width={36} height={36} className="rounded-full" />
-              <span className="text-white font-bold">XiqueXique Viagens</span>
+              <Image src="/logo.png" alt="" width={36} height={36} className="rounded-full bg-white" aria-hidden />
+              <span className="text-background font-bold">XiqueXique Viagens</span>
             </div>
-            <p className="text-sm leading-relaxed mb-5">
-              Agência de viagens e turismo socioambiental. Acessibilizamos o direito de viajar e ser mais feliz.
+            <p className="text-sm leading-relaxed mb-5 max-w-xs">
+              Acessibilizamos o direito de viajar. Viagens parceladas no carnê, sem juros.
             </p>
             <div className="flex gap-2">
-              <LinkButton href="https://www.instagram.com/xiquexiqueviagens/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" variant="ghost" size="icon" className="rounded-full text-gray-400 hover:text-white hover:bg-pink-600">
-                <InstagramIcon size={16} />
-              </LinkButton>
-              <LinkButton href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" variant="ghost" size="icon" className="rounded-full text-gray-400 hover:text-white hover:bg-green-600">
-                <MessageCircle size={16} />
-              </LinkButton>
-              <LinkButton href="mailto:contato@xiquexiqueviagens.com.br" aria-label="E-mail" variant="ghost" size="icon" className="rounded-full text-gray-400 hover:text-white hover:bg-orange-500">
-                <Mail size={16} />
-              </LinkButton>
+              <Badge className="bg-cyan-500/20 text-cyan-300 border-0 hover:bg-cyan-500/20 font-medium">ODS 10</Badge>
+              <Badge className="bg-green-500/20 text-green-300 border-0 hover:bg-green-500/20 font-medium">ODS 12</Badge>
             </div>
-          </div>
-
-          {/* Destinos */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Destinos</h4>
-            <ul className="space-y-2 text-sm">
-              {destinos.map((d) => (
-                <li key={d}>
-                  <a href="#destinos" className="hover:text-orange-400 transition-colors">{d}</a>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contato */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contato</h4>
+            <h4 className="text-background font-semibold mb-4">Fale com a gente</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors flex items-center gap-2">
-                  <MessageCircle size={14} /> WhatsApp
+                <a
+                  href={whatsappUrl("Oi! Cheguei pelo site da XiqueXique.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-green-400 transition-colors"
+                >
+                  <MessageCircle size={16} aria-hidden /> WhatsApp
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/xiquexiqueviagens/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors flex items-center gap-2">
-                  <InstagramIcon size={14} /> @xiquexiqueviagens
+                <a
+                  href="https://www.instagram.com/xiquexiqueviagens/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-pink-400 transition-colors"
+                >
+                  <InstagramIcon size={16} /> @xiquexiqueviagens
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@xiquexiqueviagens.com.br" className="hover:text-orange-400 transition-colors flex items-center gap-2">
-                  <Mail size={14} /> contato@xiquexiqueviagens.com.br
+                <a
+                  href="mailto:contato@xiquexiqueviagens.com.br"
+                  className="inline-flex items-center gap-2 hover:text-orange-400 transition-colors"
+                >
+                  <Mail size={16} aria-hidden /> contato@xiquexiqueviagens.com.br
                 </a>
               </li>
             </ul>
+          </div>
 
-            <div className="mt-6 p-4 bg-gray-800 rounded-xl">
-              <p className="text-xs text-gray-500 mb-2">Apoiamos</p>
-              <div className="flex gap-2">
-                <Badge className="bg-cyan-500/20 text-cyan-400 border-0 hover:bg-cyan-500/20">ODS 10</Badge>
-                <Badge className="bg-green-600/20 text-green-400 border-0 hover:bg-green-600/20">ODS 12</Badge>
-              </div>
-            </div>
+          {/* Navegação */}
+          <div>
+            <h4 className="text-background font-semibold mb-4">Navegar</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#como-funciona" className="hover:text-primary transition-colors">Como funciona</a></li>
+              <li><a href="#destinos" className="hover:text-primary transition-colors">Destinos</a></li>
+              <li><a href="#depoimentos" className="hover:text-primary transition-colors">Depoimentos</a></li>
+              <li><a href="#instagram" className="hover:text-primary transition-colors">Instagram</a></li>
+            </ul>
           </div>
         </div>
 
-        <Separator className="bg-gray-800 mb-6" />
+        <Separator className="bg-background/10 mb-6" />
 
-        <p className="text-center text-xs text-gray-600">
-          © {new Date().getFullYear()} XiqueXique Viagens — Agência de Turismo Socioambiental. Todos os direitos reservados.
+        <p className="text-center text-xs text-background/50">
+          © {new Date().getFullYear()} XiqueXique Viagens — Agência de turismo socioambiental.
         </p>
       </div>
     </footer>

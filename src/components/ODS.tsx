@@ -1,49 +1,51 @@
-import { Badge } from "@/components/ui/badge";
-import { LinkButton } from "@/components/ui/link-button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Sprout, Scale } from "lucide-react";
 
-const ods = [
+const itens = [
   {
     numero: "10",
-    titulo: "Redução das Desigualdades",
-    descricao: "Tornamos o turismo acessível para pessoas de baixa renda, democratizando o direito de viajar.",
+    titulo: "Redução das desigualdades",
+    descricao: "Tornamos viajar possível para quem nunca teve acesso.",
+    Icon: Scale,
+    cor: "text-cyan-700 bg-cyan-100",
   },
   {
     numero: "12",
-    titulo: "Consumo Responsável",
-    descricao: "Promovemos o turismo sustentável, respeitando o meio ambiente e as comunidades locais.",
+    titulo: "Consumo responsável",
+    descricao: "Turismo sustentável, respeitando natureza e comunidades locais.",
+    Icon: Sprout,
+    cor: "text-green-700 bg-green-100",
   },
 ];
 
 export default function ODS() {
   return (
-    <section className="py-16 bg-gradient-to-br from-green-600 to-cyan-600 text-white">
+    <section className="py-14 bg-background border-y border-border">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-center">
           <div>
-            <Badge className="bg-white/20 text-white border-white/30 mb-4 hover:bg-white/20">
-              Nosso Compromisso
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Nosso compromisso
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mt-1">
               Turismo que transforma
             </h2>
-            <p className="text-green-100 leading-relaxed mb-6">
-              A XiqueXique Viagens apoia os Objetivos de Desenvolvimento Sustentável da ONU, acreditando que o turismo pode ser uma força de transformação social e ambiental.
-            </p>
-              <LinkButton href="https://odsbrasil.gov.br/" target="_blank" rel="noopener noreferrer" variant="outline" className="rounded-full border-white/40 text-white bg-transparent hover:bg-white/10 hover:text-white">
-                Saiba mais sobre as ODS
-              </LinkButton>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {ods.map((item) => (
-              <Card key={item.numero} className="bg-white/10 border-white/20 text-white">
-                <CardContent className="pt-6">
-                  <div className="text-4xl font-black mb-2">ODS {item.numero}</div>
-                  <h3 className="font-bold text-base mb-1">{item.titulo}</h3>
-                  <p className="text-green-100 text-sm leading-relaxed">{item.descricao}</p>
-                </CardContent>
-              </Card>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {itens.map(({ numero, titulo, descricao, Icon, cor }) => (
+              <div
+                key={numero}
+                className="flex items-start gap-3 rounded-xl bg-card border border-border p-4"
+              >
+                <div className={`inline-flex items-center justify-center size-10 rounded-lg ${cor} shrink-0`}>
+                  <Icon size={20} aria-hidden />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground">ODS {numero}</p>
+                  <p className="font-semibold text-foreground text-sm leading-tight">{titulo}</p>
+                  <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{descricao}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>

@@ -24,3 +24,12 @@ export function formatCount(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return String(n);
 }
+
+// Número placeholder — trocar em um único lugar quando a ONG informar o real.
+const WHATSAPP_NUMERO = "5500000000000";
+
+export function whatsappUrl(mensagem?: string): string {
+  const base = `https://wa.me/${WHATSAPP_NUMERO}`;
+  if (!mensagem) return base;
+  return `${base}?text=${encodeURIComponent(mensagem)}`;
+}

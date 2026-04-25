@@ -5,35 +5,42 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  /* Cream quente, não branco puro — mais acolhedor e menos clínico */
+  --background: oklch(0.985 0.012 75);
+  --foreground: oklch(0.18 0.02 40);
 
-  /* Brand: laranja como primary */
-  --primary: oklch(0.65 0.2 40);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 40);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 40);
+
+  /* Laranja da marca (logo) */
+  --primary: oklch(0.68 0.19 45);
   --primary-foreground: oklch(1 0 0);
 
-  /* Brand: ciano como secondary */
-  --secondary: oklch(0.7 0.14 210);
+  /* Ciano secundário */
+  --secondary: oklch(0.72 0.13 210);
   --secondary-foreground: oklch(1 0 0);
 
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.65 0.2 40);
-  --radius: 0.75rem;
+  --muted: oklch(0.955 0.008 70);
+  /* Escurecido de 0.556 pra garantir contraste AA em body text */
+  --muted-foreground: oklch(0.42 0.015 40);
 
-  /* Brand extras */
-  --brand-orange: #f97316;
-  --brand-cyan: #06b6d4;
-  --brand-green: #16a34a;
+  --accent: oklch(0.955 0.008 70);
+  --accent-foreground: oklch(0.22 0.02 40);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.01 60);
+  --input: oklch(0.9 0.01 60);
+  --ring: oklch(0.68 0.19 45);
+  --radius: 0.875rem;
+
+  /* Tokens utilitários da marca */
+  --brand-cream: oklch(0.985 0.012 75);
+  --brand-cream-deep: oklch(0.96 0.02 70);
+  --brand-orange: oklch(0.68 0.19 45);
+  --brand-terracotta: oklch(0.52 0.15 40);
+  --brand-cyan: oklch(0.72 0.13 210);
+  --brand-green: oklch(0.62 0.15 155);
 }
 
 @theme inline {
@@ -57,6 +64,12 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-cream-deep: var(--brand-cream-deep);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-terracotta: var(--brand-terracotta);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-green: var(--brand-green);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -72,8 +85,33 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    line-height: 1.65;
   }
   html {
     @apply font-sans scroll-smooth;
   }
+  h1, h2, h3, h4 {
+    line-height: 1.2;
+  }
+  /* Offset quando clicar em âncoras do menu — evita que o header fixo cubra o título */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* Skip link — invisível até receber foco via Tab */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 150ms ease-out;
+}
+.skip-link:focus {
+  top: 1rem;
 }

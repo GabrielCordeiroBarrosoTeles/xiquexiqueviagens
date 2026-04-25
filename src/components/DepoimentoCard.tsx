@@ -1,27 +1,25 @@
-import { Star } from "lucide-react";
+import { Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { Depoimento } from "@/types/depoimento";
 
 export function DepoimentoCard({ dep }: { dep: Depoimento }) {
   return (
-    <Card>
-      <CardContent className="pt-6">
-        <div className="flex gap-0.5 mb-4">
-          {Array.from({ length: dep.nota }).map((_, i) => (
-            <Star key={i} size={15} className="fill-orange-400 text-orange-400" />
-          ))}
-        </div>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-5">"{dep.texto}"</p>
+    <Card className="h-full bg-card border-border hover:shadow-md transition-shadow">
+      <CardContent className="pt-7 pb-6 flex flex-col h-full">
+        <Quote size={28} className="text-primary/30 mb-3" aria-hidden />
+        <p className="text-foreground text-base leading-relaxed mb-6 flex-1 italic">
+          “{dep.texto}”
+        </p>
         <div className="flex items-center gap-3">
-          <Avatar>
-            <AvatarFallback className="bg-gradient-to-br from-orange-400 to-cyan-500 text-white text-xs font-bold">
+          <Avatar className="size-12">
+            <AvatarFallback className="bg-gradient-to-br from-primary to-brand-cyan text-white text-sm font-bold">
               {dep.avatar}
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-semibold text-gray-900 text-sm">{dep.nome}</p>
-            <p className="text-muted-foreground text-xs">{dep.cidade}</p>
+            <p className="font-semibold text-foreground">{dep.nome}</p>
+            <p className="text-muted-foreground text-sm">{dep.cidade}</p>
           </div>
         </div>
       </CardContent>
